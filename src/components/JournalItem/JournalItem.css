@@ -19,10 +19,15 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+}
+
+.journal-item__header,
+.journal-item__text {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 
 .journal-item__body {
   display: flex;
