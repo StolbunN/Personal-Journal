@@ -1,6 +1,7 @@
-import "./JournalForm.css";
+import styles from "./JournalForm.module.css";
 import Button from "../Button/Button"
 import { useState } from "react";
+import cn from "classnames";
 
 function JournalForm({onSubmit}) {
 
@@ -41,11 +42,31 @@ function JournalForm({onSubmit}) {
   }
 
   return (
-    <form className="journal-form" onSubmit={addJournalItem}>
-      <input type="text" name="title" className={`input ${formValidState.title ? '' : 'invalid'}`}/>
-      <input type="date" name="date" className={`input ${formValidState.date ? '' : 'invalid'}`}/>
-      <input type="text" name="tag" />
-      <textarea name="text" cols="30" rows="10" className={`input ${formValidState.text ? '' : 'invalid'}`}></textarea>
+    <form className={styles['journal-form']} onSubmit={addJournalItem}>
+      <div className={styles['input-wrapper']}>
+        <input type="text" name="title" className={cn(styles['input'], styles.title, {
+          [styles['invalid']]: !formValidState.title
+        })}/>
+      </div>
+      <div className={styles['input-wrapper']}>
+        <label htmlFor="date" className={styles['input-label']}>
+          <img src="/date.svg" alt="Иконка календаря" className={styles['input-img']}/>
+          <span>Дата</span>
+        </label>
+        <input id="date" type="date" name="date" className={cn(styles['input'], {
+          [styles['invalid']]: !formValidState.date
+        })}/>
+      </div>
+      <div className={styles['input-wrapper']}>
+        <label htmlFor="tag" className={styles['input-label']}>
+          <img src="/tag.svg" alt="Иконка тега" className={styles['input-img']}/>
+          <span>Метки</span>
+        </label>
+        <input id="tag" type="text" name="tag" className={styles['input']}/>
+      </div>
+      <textarea name="text" rows="10" className={cn(styles['input'], styles['input-post'], {
+        [styles['invalid']]: !formValidState.text
+      })}></textarea>
       <Button text="Сохранить"/>
     </form>
   )

@@ -1,4 +1,4 @@
 .app-wrapper {
   display: grid;
-  grid-template-columns: minmax(100px, 400px) 1fr;
+  grid-template-columns: minmax(270px, 400px) 1fr;
 }

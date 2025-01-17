@@ -1,4 +1,4 @@
-import "./JournalList.css";
+import styles from "./JournalList.module.css";
 import CardButton from '../CardButton/CardButton';
 import JournalItem from '../JournalItem/JournalItem';
 
@@ -19,7 +19,7 @@ function JournalList({ items }) {
 
   if(items.length > 0) {
     return (
-      <div className="journal-list">
+      <div className={styles['journal-list']}>
           {items.sort(sortItem).map((journalItem) => (
           <CardButton key={journalItem.id}>
             <JournalItem

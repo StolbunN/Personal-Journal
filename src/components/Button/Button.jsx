@@ -1,9 +1,10 @@
-import "./Button.css";
+import styles from "./Button.module.css";
+import cn from "classnames";
 
 function Button({ text }) {
 
   return (
-    <button className="button accent">{text}</button>
+    <button className={cn(styles['button'], styles['accent'])}>{text}</button>
   )
 }
 
