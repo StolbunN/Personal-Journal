@@ -24,7 +24,7 @@ function JournalList({ items }) {
           <CardButton key={journalItem.id}>
             <JournalItem
               title={journalItem.title}
-              text={journalItem.text}
+              post={journalItem.post}
               date={journalItem.date}
             />
           </CardButton>
