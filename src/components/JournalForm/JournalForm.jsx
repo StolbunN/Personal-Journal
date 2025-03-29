@@ -1,6 +1,6 @@
 import styles from "./JournalForm.module.css";
 import Button from "../Button/Button"
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useRef } from "react";
 import cn from "classnames";
 import { INITIAL_STATE, formReducer } from "./JournalForm.state";
 
@@ -10,10 +10,14 @@ function JournalForm({onSubmit}) {
   const [formState, dispatchForm] = useReducer(formReducer, INITIAL_STATE);
   const { isValid, isFormReadyToSubmit, values } = formState;
 
+  const titleRef = useRef(null);
+  const dateRef = useRef(null);
+  const postRef = useRef(null);
 
   useEffect(() => {
     let timerId;
     if(!isValid.title || !isValid.post || !isValid.date) {
+      onFocus(isValid);
       timerId = setTimeout(() => {
         dispatchForm({type: "RESET_VALIDITY"})
       }, 2000)
@@ -42,10 +46,27 @@ function JournalForm({onSubmit}) {
     dispatchForm({type: "SUBMIT"})
   }
 
+  const onFocus = (isValid) => {
+    switch(true) {
+      case !isValid.title: {
+        titleRef.current.focus();
+        break;
+      }
+      case !isValid.date: {
+        dateRef.current.focus();
+        break;
+      }
+      case !isValid.post: {
+        postRef.current.focus();
+        break;
+      }
+    }
+  }
+
   return (
     <form className={styles['journal-form']} onSubmit={addJournalItem}>
       <div className={styles['input-wrapper']}>
-        <input type="text" value={values.title} onChange={inputChange} name="title" className={cn(styles['input'], styles['title'], {
+        <input type="text" ref={titleRef} value={values.title} onChange={inputChange} name="title" className={cn(styles['input'], styles['title'], {
           [styles['invalid']]: !isValid.title
         })}/>
       </div>
@@ -54,7 +75,7 @@ function JournalForm({onSubmit}) {
           <img src="/date.svg" alt="Иконка календаря" className={styles['input-img']}/>
           <span>Дата</span>
         </label>
-        <input id="date" value={values.date} onChange={inputChange} type="date" name="date" className={cn(styles['input'], {
+        <input id="date" ref={dateRef} value={values.date} onChange={inputChange} type="date" name="date" className={cn(styles['input'], {
           [styles['invalid']]: !isValid.date
         })}/>
       </div>
@@ -65,7 +86,7 @@ function JournalForm({onSubmit}) {
         </label>
         <input id="tag" value={values.tag} onChange={inputChange} type="text" name="tag" className={styles['input']}/>
       </div>
-      <textarea name="post" value={values.post} onChange={inputChange} rows="10" className={cn(styles['input'], styles['input-post'], {
+      <textarea name="post" ref={postRef} value={values.post} onChange={inputChange} rows="10" className={cn(styles['input'], styles['input-post'], {
         [styles['invalid']]: !isValid.post
       })}></textarea>
       <Button text="Сохранить"/>
