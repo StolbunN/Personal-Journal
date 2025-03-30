@@ -1,0 +1,23 @@
+.input {
+  flex: 1;
+  background: transparent;
+  color: #fff;
+  height: 48px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 0;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 32px;
+  height: 40px;
+  flex: 1;
+}
+
+.invalid {
+  border: 1px solid red;
+  background: rgb(83, 23, 23);
+}

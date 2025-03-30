@@ -1,5 +1,6 @@
 import styles from "./JournalForm.module.css";
 import Button from "../Button/Button"
+import Input from "../Input/Input";
 import { useEffect, useReducer, useRef } from "react";
 import cn from "classnames";
 import { INITIAL_STATE, formReducer } from "./JournalForm.state";
@@ -66,18 +67,14 @@ function JournalForm({onSubmit}) {
   return (
     <form className={styles['journal-form']} onSubmit={addJournalItem}>
       <div className={styles['input-wrapper']}>
-        <input type="text" ref={titleRef} value={values.title} onChange={inputChange} name="title" className={cn(styles['input'], styles['title'], {
-          [styles['invalid']]: !isValid.title
-        })}/>
+        <Input type="text" ref={titleRef} isValid={isValid.title} value={values.title} onChange={inputChange} name="title" appearance={"title"}/>
       </div>
       <div className={styles['input-wrapper']}>
         <label htmlFor="date" className={styles['input-label']}>
           <img src="/date.svg" alt="Иконка календаря" className={styles['input-img']}/>
           <span>Дата</span>
         </label>
-        <input id="date" ref={dateRef} value={values.date} onChange={inputChange} type="date" name="date" className={cn(styles['input'], {
-          [styles['invalid']]: !isValid.date
-        })}/>
+        <Input id="date" ref={dateRef} isValid={isValid.date} value={values.date} onChange={inputChange} type="date" name="date"/>
       </div>
       <div className={styles['input-wrapper']}>
         <label htmlFor="tag" className={styles['input-label']}>
