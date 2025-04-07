@@ -4,6 +4,8 @@ import Input from "../Input/Input";
 import { useEffect, useReducer, useRef } from "react";
 import cn from "classnames";
 import { INITIAL_STATE, formReducer } from "./JournalForm.state";
+import { useContext } from "react";
+import { UserContext } from "../../context/user.context";
 
 
 function JournalForm({onSubmit}) {
@@ -14,6 +16,8 @@ function JournalForm({onSubmit}) {
   const titleRef = useRef(null);
   const dateRef = useRef(null);
   const postRef = useRef(null);
+
+  const {userId} = useContext(UserContext)
 
   useEffect(() => {
     let timerId;
@@ -34,6 +38,13 @@ function JournalForm({onSubmit}) {
       dispatchForm({type: "CLEAR"})
     }
   }, [isFormReadyToSubmit, values, onSubmit])
+
+  useEffect(() => {
+    dispatchForm({
+      type: "SET_VALUE",
+      payload: {userId}
+    })
+  }, [userId])
 
   const inputChange = (e) => {
     dispatchForm({
