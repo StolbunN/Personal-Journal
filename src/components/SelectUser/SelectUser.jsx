@@ -6,7 +6,6 @@ function SelectUser() {
 
   const changeUser = (e) => {
     setUserId(Number(e.target.value));
-    console.log(e.target.value);
   }
 
   return (

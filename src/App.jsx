@@ -23,15 +23,27 @@ function mapItems(items) {
 function App() {
 
   const [items, setItems] = useLocalStorage("data");
+  const [currentItem, setCurrentItem] = useState({});
 
   const addItem = (item) => {
-    setItems([...mapItems(items), {
-      ...item,
-      id: items?.length > 0 ?  Math.max(...items.map(item => item.id)) + 1 : 1,
-      date: new Date(item.date)
-    }]);
+    if(!item.id) {
+      setItems([...mapItems(items), {
+        ...item,
+        id: items?.length > 0 ?  Math.max(...items.map(item => item.id)) + 1 : 1,
+        date: new Date(item.date)
+      }]);
+    } else {
+      setItems([...mapItems(items).map(i => {
+        if(i.id === item.id) {
+          return {
+            ...item
+          } 
+        } else {
+          return i
+        }
+      })])
+    }
   }
-
 
   return (
     <UserContextProvider>
@@ -39,10 +51,10 @@ function App() {
         <LeftPanel>
           <Header/>
           <JournalAddButton/>
-          <JournalList items={mapItems(items)}/>
+          <JournalList items={mapItems(items)} setCurrentItem={setCurrentItem}/>
         </LeftPanel>
         <Body>
-          <JournalForm onSubmit={addItem}/>
+          <JournalForm onSubmit={addItem} currentItem={currentItem}/>
         </Body>
       </div>
     </UserContextProvider>

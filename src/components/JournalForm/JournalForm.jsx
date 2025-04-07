@@ -8,7 +8,7 @@ import { useContext } from "react";
 import { UserContext } from "../../context/user.context";
 
 
-function JournalForm({onSubmit}) {
+function JournalForm({onSubmit, currentItem}) {
 
   const [formState, dispatchForm] = useReducer(formReducer, INITIAL_STATE);
   const { isValid, isFormReadyToSubmit, values } = formState;
@@ -17,7 +17,9 @@ function JournalForm({onSubmit}) {
   const dateRef = useRef(null);
   const postRef = useRef(null);
 
-  const {userId} = useContext(UserContext)
+  const {userId} = useContext(UserContext);
+
+  // console.log(new Date(currentItem.date).getDate())
 
   useEffect(() => {
     let timerId;
@@ -35,9 +37,13 @@ function JournalForm({onSubmit}) {
   useEffect(() => {
     if(isFormReadyToSubmit) {
       onSubmit(values);
-      dispatchForm({type: "CLEAR"})
+      dispatchForm({type: "CLEAR"});
+      dispatchForm({
+        type: "SET_VALUE",
+        payload: {userId}
+      })
     }
-  }, [isFormReadyToSubmit, values, onSubmit])
+  }, [isFormReadyToSubmit, values, onSubmit, userId])
 
   useEffect(() => {
     dispatchForm({
@@ -45,6 +51,13 @@ function JournalForm({onSubmit}) {
       payload: {userId}
     })
   }, [userId])
+
+  useEffect(() => {
+      dispatchForm({
+        type: "SET_VALUE",
+        payload: { ...currentItem }
+      })
+  }, [currentItem])
 
   const inputChange = (e) => {
     dispatchForm({
@@ -85,7 +98,7 @@ function JournalForm({onSubmit}) {
           <img src="/date.svg" alt="Иконка календаря" className={styles['input-img']}/>
           <span>Дата</span>
         </label>
-        <Input id="date" ref={dateRef} isValid={isValid.date} value={values.date} onChange={inputChange} type="date" name="date"/>
+        <Input id="date" ref={dateRef} isValid={isValid.date} value={values.date ? new Date(values.date).toISOString().slice(0, 10) : ''} onChange={inputChange} type="date" name="date"/>
       </div>
       <div className={styles['input-wrapper']}>
         <label htmlFor="tag" className={styles['input-label']}>
