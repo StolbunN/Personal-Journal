@@ -1,15 +1,15 @@
-import styles from "./JournalList.module.css";
+import styles from './JournalList.module.css';
 import CardButton from '../CardButton/CardButton';
 import JournalItem from '../JournalItem/JournalItem';
-import { UserContext } from "../../context/user.context";
-import { useContext } from "react";
+import { UserContext } from '../../context/user.context';
+import { useContext } from 'react';
 
 function JournalList({ items, setCurrentItem }) {
 
-  const {userId} = useContext(UserContext)
+  const {userId} = useContext(UserContext);
 
   if(items.length === 0) {
-    return <p>Пока записей нет. Добавьте свою первую запись :)</p>
+    return <p>Пока записей нет. Добавьте свою первую запись :)</p>;
   }
 
 
@@ -19,7 +19,7 @@ function JournalList({ items, setCurrentItem }) {
     } else {
       return 1;
     }
-  }
+  };
 
   if(items.length > 0) {
     return (
@@ -38,7 +38,7 @@ function JournalList({ items, setCurrentItem }) {
           )
         )}
       </div>
-    )
+    );
   }
 }
 

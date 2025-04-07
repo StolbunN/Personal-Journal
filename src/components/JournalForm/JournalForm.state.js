@@ -11,14 +11,14 @@ export const INITIAL_STATE = {
     tag: ''
   },
   isFormReadyToSubmit: false
-}
+};
 
 export function formReducer(state, action) {
   switch(action.type) {
-    case "RESET_VALIDITY": {
-      return {...state, isValid: INITIAL_STATE.isValid}
+    case 'RESET_VALIDITY': {
+      return {...state, isValid: INITIAL_STATE.isValid};
     }
-    case "SUBMIT": {
+    case 'SUBMIT': {
       const titleValidity = state.values.title?.trim().length;
       const postValidity = state.values.post?.trim().length;
       const dateValidity = state.values.date;
@@ -31,13 +31,13 @@ export function formReducer(state, action) {
           date: dateValidity
         },
         isFormReadyToSubmit: titleValidity && postValidity && dateValidity
-      }
+      };
     }
-    case "CLEAR": {
+    case 'CLEAR': {
       return {...state, values: INITIAL_STATE.values, isFormReadyToSubmit: false};
     }
-    case "SET_VALUE": {
-      return {...state, values: {...state.values, ...action.payload}}
+    case 'SET_VALUE': {
+      return {...state, values: {...state.values, ...action.payload}};
     }
   }
 }

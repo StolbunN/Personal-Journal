@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useState } from 'react';
 import './App.css';
 import Header from './components/Header/Header';
@@ -8,7 +7,7 @@ import JournalList from './components/JournalList/JournalList';
 import { useLocalStorage } from './hooks/use-localstorage.hook';
 import Body from './layouts/Body/Body';
 import LeftPanel from './layouts/LeftPanel/LeftPanel';
-import { UserContextProvider } from "./context/user.context"
+import { UserContextProvider } from './context/user.context';
 
 function mapItems(items) {
   if(!items) {
@@ -17,12 +16,12 @@ function mapItems(items) {
   return items.map(i => ({
     ...i,
     date: new Date(i.date)
-  }))
+  }));
 }
 
 function App() {
 
-  const [items, setItems] = useLocalStorage("data");
+  const [items, setItems] = useLocalStorage('data');
   const [currentItem, setCurrentItem] = useState(null);
 
   const addItem = (item) => {
@@ -37,17 +36,17 @@ function App() {
         if(i.id === item.id) {
           return {
             ...item
-          } 
+          }; 
         } else {
-          return i
+          return i;
         }
-      })])
+      })]);
     }
-  }
+  };
 
   const deleteItem = (itemId) => {
     setItems([...mapItems(items).filter(i => i.id !== itemId)]);
-  }
+  };
 
   return (
     <UserContextProvider>
@@ -62,7 +61,7 @@ function App() {
         </Body>
       </div>
     </UserContextProvider>
-  )
+  );
 }
 
-export default App
+export default App;

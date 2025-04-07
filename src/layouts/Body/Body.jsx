@@ -1,4 +1,4 @@
-import styles from "./Body.module.css";
+import styles from './Body.module.css';
 
 function Body({children}) {
 
@@ -6,7 +6,7 @@ function Body({children}) {
     <div className={styles['body']}>
       {children}
     </div>
-  )
+  );
 }
 
 export default Body;

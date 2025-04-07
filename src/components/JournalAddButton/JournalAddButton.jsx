@@ -1,5 +1,5 @@
-import CardButton from "../CardButton/CardButton";
-import styles from "./JournalAddButton.module.css";
+import CardButton from '../CardButton/CardButton';
+import styles from './JournalAddButton.module.css';
 
 function JournalAddButton({clearForm}) {
 
@@ -11,7 +11,7 @@ function JournalAddButton({clearForm}) {
       </svg>
       Новое воспоминание
     </CardButton>
-  )
+  );
 }
 
 export default JournalAddButton;

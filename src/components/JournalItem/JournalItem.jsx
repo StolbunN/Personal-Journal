@@ -1,8 +1,8 @@
-import styles from "./JournalItem.module.css";
+import styles from './JournalItem.module.css';
 
 function JournalItem({title, post, date}) {
 
-  const formatedDate = new Intl.DateTimeFormat(navigator.language).format(date)
+  const formatedDate = new Intl.DateTimeFormat(navigator.language).format(date);
 
   return (
     <>
@@ -12,7 +12,7 @@ function JournalItem({title, post, date}) {
         <div className={styles['journal-item__text']}>{post}</div>
       </h2>
     </>
-  )
+  );
 }
 
 export default JournalItem;
