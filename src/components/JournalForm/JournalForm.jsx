@@ -8,7 +8,7 @@ import { useContext } from "react";
 import { UserContext } from "../../context/user.context";
 
 
-function JournalForm({onSubmit, currentItem}) {
+function JournalForm({onSubmit, currentItem, onDelete}) {
 
   const [formState, dispatchForm] = useReducer(formReducer, INITIAL_STATE);
   const { isValid, isFormReadyToSubmit, values } = formState;
@@ -18,8 +18,6 @@ function JournalForm({onSubmit, currentItem}) {
   const postRef = useRef(null);
 
   const {userId} = useContext(UserContext);
-
-  // console.log(new Date(currentItem.date).getDate())
 
   useEffect(() => {
     let timerId;
@@ -53,6 +51,13 @@ function JournalForm({onSubmit, currentItem}) {
   }, [userId])
 
   useEffect(() => {
+    if(!currentItem) {
+      dispatchForm({type: "CLEAR"});
+      dispatchForm({
+        type: "SET_VALUE",
+        payload: {userId}
+      })
+    }
       dispatchForm({
         type: "SET_VALUE",
         payload: { ...currentItem }
@@ -88,10 +93,22 @@ function JournalForm({onSubmit, currentItem}) {
     }
   }
 
+  const deleteJournalItem = () => {
+    onDelete(currentItem.id);
+    dispatchForm({type: "CLEAR"});
+    dispatchForm({
+      type: "SET_VALUE",
+      payload: {userId}
+    })
+  }
+
   return (
     <form className={styles['journal-form']} onSubmit={addJournalItem}>
-      <div className={styles['input-wrapper']}>
+      <div className={cn(styles['input-wrapper'], styles['input-wrapper__title'])}>
         <Input type="text" ref={titleRef} isValid={isValid.title} value={values.title} onChange={inputChange} name="title" appearance={"title"}/>
+        {currentItem?.id && <button className={styles['delete']} type="button" onClick={deleteJournalItem}>
+          <img src="/archive.svg" alt="Кнопка удалить" />
+        </button>}
       </div>
       <div className={styles['input-wrapper']}>
         <label htmlFor="date" className={styles['input-label']}>
