@@ -12,7 +12,7 @@ function SelectUser() {
   return (
     <select name="user" id="user" value={userId} onChange={changeUser} className={styles['select']}>
       <option value="1">Никита</option>
-      <option value="2">Елена</option>
+      <option value="2">Кто-то ещё</option>
     </select>
   );
 }

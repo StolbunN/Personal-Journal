@@ -6,6 +6,9 @@ import cn from 'classnames';
 import { INITIAL_STATE, formReducer } from './JournalForm.state';
 import { useContext } from 'react';
 import { UserContext } from '../../context/user.context';
+import archiveIcon from '../../assets/archive-icon.svg';
+import dateIcon from '../../assets/date-icon.svg';
+import tagIcon from '../../assets/tag-icon.svg';
 
 
 function JournalForm({onSubmit, currentItem, onDelete}) {
@@ -106,20 +109,20 @@ function JournalForm({onSubmit, currentItem, onDelete}) {
     <form className={styles['journal-form']} onSubmit={addJournalItem}>
       <div className={cn(styles['input-wrapper'], styles['input-wrapper__title'])}>
         <Input type="text" ref={titleRef} isValid={isValid.title} value={values.title} onChange={inputChange} name="title" appearance={'title'}/>
-        {currentItem?.id && <button className={styles['delete']} type="button" onClick={deleteJournalItem}>
-          <img src="/archive.svg" alt="Кнопка удалить" />
-        </button>}
+        {currentItem?.id && (<button className={styles['delete']} type="button" onClick={deleteJournalItem}>
+          <img src={archiveIcon} alt="Кнопка удалить" />
+        </button>)}
       </div>
       <div className={styles['input-wrapper']}>
         <label htmlFor="date" className={styles['input-label']}>
-          <img src="/date.svg" alt="Иконка календаря" className={styles['input-img']}/>
+          <img src={dateIcon} alt="Иконка календаря" className={styles['input-img']}/>
           <span>Дата</span>
         </label>
         <Input id="date" ref={dateRef} isValid={isValid.date} value={values.date ? new Date(values.date).toISOString().slice(0, 10) : ''} onChange={inputChange} type="date" name="date"/>
       </div>
       <div className={styles['input-wrapper']}>
         <label htmlFor="tag" className={styles['input-label']}>
-          <img src="/tag.svg" alt="Иконка тега" className={styles['input-img']}/>
+          <img src={tagIcon} alt="Иконка тега" className={styles['input-img']}/>
           <span>Метки</span>
         </label>
         <input id="tag" value={values.tag} onChange={inputChange} type="text" name="tag" className={styles['input']}/>
